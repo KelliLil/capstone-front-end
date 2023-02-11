@@ -8,10 +8,13 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import InputText from "../components/input-text";
 import { userApi } from "../services";
+import { useNavigate } from "react-router-dom";
 
 // TODO: Go home if there is a token in localStorage
 export default function SignIn() {
   const [isRegistering, setIsRegistering] = useState(true);
+
+  const navigate = useNavigate();
 
   const formSchema = yup.object({
     username: yup.string().required("Username is required"),
@@ -44,6 +47,7 @@ export default function SignIn() {
             // TODO: Add 'catch' and route to error page
             userApi.signIn({ ...data, isRegistering }).then((res) => {
               localStorage.setItem("token", res.token);
+              navigate("/");
             });
           })}
         >
