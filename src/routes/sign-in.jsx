@@ -16,9 +16,9 @@ export default function SignIn() {
     password: yup
       .string()
       .min(8, "Password must be at least 8 characters long"),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+    confirmPassword: isRegistering
+      ? yup.string().oneOf([yup.ref("password"), null], "Passwords must match")
+      : null,
   });
 
   const {
