@@ -17,7 +17,7 @@ export default function SignIn() {
       .string()
       .min(8, "Password must be at least 8 characters long"),
     confirmPassword: isRegistering
-      ? yup.string().oneOf([yup.ref("password"), null], "Passwords must match")
+      ? yup.string().oneOf([yup.ref("password")], "Passwords must match")
       : null,
   });
 
@@ -26,6 +26,7 @@ export default function SignIn() {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(formSchema),
@@ -68,13 +69,15 @@ export default function SignIn() {
               )}
             </InputText>
           )}
-          <div className="my-4 flex flex-col items-center">
+          <div className="my-4 flex flex-col items-center gap-y-8">
             <Button type="submit" fullWidth variant="contained">
               {isRegistering ? "Sign Up" : "Login"}
             </Button>
             <Button
-              type="reset"
+              // * Avoid the HTML 'reset' for React Hook Form instead use the reset() method ☝️
+              type="button"
               onClick={() => {
+                reset();
                 setIsRegistering((prev) => !prev);
               }}
             >
