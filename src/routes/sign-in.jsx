@@ -9,6 +9,7 @@ import * as yup from "yup";
 import InputText from "../components/input-text";
 import { userApi } from "../services";
 
+// TODO: Go home if there is a token in localStorage
 export default function SignIn() {
   const [isRegistering, setIsRegistering] = useState(true);
 
@@ -40,7 +41,10 @@ export default function SignIn() {
         <form
           className="mt-4 flex flex-col items-center gap-y-4"
           onSubmit={handleSubmit((data) => {
-            userApi.register(data.username, data.password);
+            // TODO: Add 'catch' and route to error page
+            userApi.signIn({ ...data, isRegistering }).then((res) => {
+              localStorage.setItem("token", res.token);
+            });
           })}
         >
           <InputText label="Username" id="username" register={register}>

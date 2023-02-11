@@ -3,16 +3,9 @@ import ky from "ky";
 const { VITE_BASE_URL } = import.meta.env;
 
 export default {
-  register(username, password) {
+  signIn({ username, password, isRegistering }) {
     return ky
-      .post(`${VITE_BASE_URL}/users/register`, {
-        json: { username, password },
-      })
-      .json();
-  },
-  signIn(username, password) {
-    return ky
-      .post(`${VITE_BASE_URL}/users/login`, {
+      .post(`${VITE_BASE_URL}/users/${isRegistering ? "register" : "login"}`, {
         json: { username, password },
       })
       .json();
