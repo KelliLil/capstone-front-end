@@ -1,3 +1,4 @@
+import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -24,66 +25,67 @@ export default function SignIn() {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(formSchema),
   });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <h1 className="text-center capitalize">Sign in</h1>
-      <form
-        className="mt-4 flex flex-col items-center gap-y-4"
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-        })}
-      >
-        <InputText label="Username" id="username" register={register}>
-          {errors.username && (
-            <Alert severity="error">{errors.username.message}</Alert>
-          )}
-        </InputText>
-
-        <InputText
-          label="Password"
-          id="password"
-          type="password"
-          register={register}
+    <>
+      <Container component="main" maxWidth="xs">
+        <h1 className="text-center capitalize">Sign in</h1>
+        <form
+          className="mt-4 flex flex-col items-center gap-y-4"
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+          })}
         >
-          {errors.password && (
-            <Alert severity="error">{errors.password.message} </Alert>
-          )}
-        </InputText>
-
-        {isRegistering && (
+          <InputText label="Username" id="username" register={register}>
+            {errors.username && (
+              <Alert severity="error">{errors.username.message}</Alert>
+            )}
+          </InputText>
           <InputText
-            label="Confirm Password"
-            id="confirmPassword"
+            label="Password"
+            id="password"
             type="password"
             register={register}
           >
-            {errors.confirmPassword && (
-              <Alert severity="error">{errors.confirmPassword.message}</Alert>
+            {errors.password && (
+              <Alert severity="error">{errors.password.message} </Alert>
             )}
           </InputText>
-        )}
-
-        <div className="my-4 flex flex-col items-center">
-          <Button type="submit" fullWidth variant="contained">
-            {isRegistering ? "Sign Up" : "Login"}
-          </Button>
-          <Button
-            type="reset"
-            onClick={() => {
-              setIsRegistering((prev) => !prev);
-            }}
-          >
-            {isRegistering
-              ? "Already have an account?"
-              : "Don't have an account?"}
-          </Button>
-        </div>
-      </form>
-    </Container>
+          {isRegistering && (
+            <InputText
+              label="Confirm Password"
+              id="confirmPassword"
+              type="password"
+              register={register}
+            >
+              {errors.confirmPassword && (
+                <Alert severity="error">{errors.confirmPassword.message}</Alert>
+              )}
+            </InputText>
+          )}
+          <div className="my-4 flex flex-col items-center">
+            <Button type="submit" fullWidth variant="contained">
+              {isRegistering ? "Sign Up" : "Login"}
+            </Button>
+            <Button
+              type="reset"
+              onClick={() => {
+                setIsRegistering((prev) => !prev);
+              }}
+            >
+              {isRegistering
+                ? "Already have an account?"
+                : "Don't have an account?"}
+            </Button>
+          </div>
+        </form>
+      </Container>
+      <DevTool control={control} /> {/* set up the dev tool */}
+    </>
   );
 }
