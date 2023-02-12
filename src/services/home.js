@@ -1,3 +1,5 @@
-import ky from "ky";
+export { default as userApi } from "./user-api.js";
 
-const { VITE_BASE_URL } = import.meta.env;
+<body>
+  <div id="map"></div>
+</body>;
