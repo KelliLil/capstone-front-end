@@ -5,17 +5,25 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
-import { Link, useLoaderData } from "react-router-dom";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import RestaurantCard from "../components/restaurant/restaurant-card";
+import { restaurantApi } from "../services";
 
 export default function Home() {
+  const [restaurant, setRestaurant] = useState(null);
+
   const cuisines = useLoaderData();
 
   // For Autocomplete, we need just the strings
   const labeledCuisines = cuisines.map((cuisine) => cuisine.name);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="mb-8">
       <h1 className="text-center">👋🏾 Just Pick a Place Already 🥘 📍 🗺️</h1>
+      {/* 
+      
+      // TODO: Do this 💩 later. 😅
       <p>
         Just for U? 🆒 👇🏾 Fill out the form below and you&apos;ll be on your
         way. 😋
@@ -24,15 +32,24 @@ export default function Home() {
         Want to coordinate with a group? Head <Link to="/sign-in>">here</Link>{" "}
         to register an account 🛂 and start sending out links to your friends.
         Or enemies 🤛🏾 to snare them into a trap 🚩 👿 🤣.
-      </p>
+      </p> */}
 
-      {/* TODO: Add some 'Link' to 'dumb' routes to explain and 'sell' 😵‍💫 this thing! */}
+      {/* TODO: Add some 'Link's to 'dumb' routes to explain and 'sell' 😵‍💫 this thing! */}
 
-      <form className="my-16 flex flex-col gap-y-4">
+      <form
+        className="my-16 flex flex-col gap-y-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          const data = Object.fromEntries(fd);
+
+          restaurantApi.show(data).then((restaurant) => {
+            setRestaurant(restaurant);
+          });
+        }}
+      >
         <Autocomplete
           disablePortal
-          id="cuisine"
-          name="cuisine"
           options={labeledCuisines}
           renderInput={
             // 'params' is used by MUI to control the input value
@@ -40,6 +57,8 @@ export default function Home() {
               <TextField
                 {...params}
                 label="What cuisine R U in the mood for? 😋"
+                id="cuisine"
+                name="category"
               />
             )
           }
@@ -50,7 +69,7 @@ export default function Home() {
         <TextField
           label="Where do you want to head? (5-Digit Zip Code)"
           id="zip"
-          name="zipCode"
+          name="location"
           // TODO: Improve validation experience 🚸.
           inputProps={{ pattern: "[0-9]{5}" }}
           required
@@ -67,6 +86,8 @@ export default function Home() {
             max={25}
             step={5}
             valueLabelDisplay="on"
+            id="radius"
+            name="radius"
           />
           <ExploreIcon />
         </div>
@@ -80,6 +101,10 @@ export default function Home() {
           Go!
         </Button>
       </form>
+
+      {restaurant && <RestaurantCard restaurant={restaurant} />}
+
+      {/* TODO: 🗺️ */}
     </Container>
   );
 }

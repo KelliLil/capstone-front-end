@@ -3,9 +3,9 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
+import Home from "./routes/home";
 import SignIn from "./routes/sign-in";
 import { cuisineApi, userApi } from "./services";
-import Home from "./routes/home";
 
 const router = createBrowserRouter([
   {
