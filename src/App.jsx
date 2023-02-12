@@ -4,12 +4,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import SignIn from "./routes/sign-in";
-import { userApi } from "./services";
+import { cuisineApi, userApi } from "./services";
+import Home from "./routes/home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <h1>🏠</h1>,
+    element: <Home />,
+    loader() {
+      return cuisineApi.index();
+    },
   },
   {
     path: "/sign-in",
