@@ -1,10 +1,26 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import SignIn from "./routes/sign-in";
+import { userApi } from "./services";
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <h1>🏠</h1>,
+  },
+  {
     path: "/sign-in",
     element: <SignIn />,
+    async action({ request }) {
+      const fd = await request.formData();
+      await userApi.signIn(Object.fromEntries(fd));
+
+      // * Redirect to home page
+      return redirect("/");
+    },
   },
 ]);
 

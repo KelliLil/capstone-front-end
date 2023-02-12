@@ -5,16 +5,16 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Form, useSubmit } from "react-router-dom";
 import * as yup from "yup";
 import InputText from "../components/input-text";
-import { userApi } from "../services";
-import { useNavigate } from "react-router-dom";
 
 // TODO: Go home if there is a token in localStorage
 export default function SignIn() {
   const [isRegistering, setIsRegistering] = useState(true);
 
-  const navigate = useNavigate();
+  // Manually set up the submit handler
+  const submit2Router = useSubmit();
 
   const formSchema = yup.object({
     username: yup.string().required("Username is required"),
@@ -28,7 +28,6 @@ export default function SignIn() {
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
     control,
     reset,
@@ -41,15 +40,24 @@ export default function SignIn() {
     <>
       <Container component="main" maxWidth="xs">
         <h1 className="text-center capitalize">Sign in</h1>
-        <form
+        <Form
           className="mt-4 flex flex-col items-center gap-y-4"
-          onSubmit={handleSubmit((data) => {
-            // TODO: Add 'catch' and route to error page
-            userApi.signIn({ ...data, isRegistering }).then((res) => {
-              localStorage.setItem("token", res.token);
-              navigate("/");
-            });
-          })}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+
+            // * ⚠️ FormData doesn't support boolean
+            // We will send it as a string, or not send it at all (if it's false) 🤓
+            isRegistering && fd.append("isRegistering", isRegistering);
+
+            // Let the router handle the submit
+            submit2Router(
+              fd,
+
+              // * Need this to trigger the action in the router
+              { method: "POST" }
+            );
+          }}
         >
           <InputText label="Username" id="username" register={register}>
             {errors.username && (
@@ -95,7 +103,7 @@ export default function SignIn() {
                 : "Don't have an account?"}
             </Button>
           </div>
-        </form>
+        </Form>
       </Container>
       <DevTool control={control} /> {/* set up the dev tool */}
     </>
