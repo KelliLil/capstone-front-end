@@ -9,7 +9,7 @@ import { userApi } from "./services";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <h1>🏠</h1>,
+    element: <h1>Welcome</h1>,
   },
   {
     path: "/sign-in",
