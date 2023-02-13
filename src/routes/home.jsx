@@ -54,7 +54,7 @@ export default function Home() {
             (params) => (
               <TextField
                 {...params}
-                label="What cuisine R U in the mood for? 😋"
+                label="Cuisine type?"
                 id="cuisine"
                 name="category"
               />
@@ -65,7 +65,7 @@ export default function Home() {
         {/* TODO: Allow other inputs such as city 🏙️. */}
         {/* TODO: Use geolocation 🤓 🗺️. */}
         <TextField
-          label="Where do you want to head? (5-Digit Zip Code)"
+          label="Zip code?"
           id="zip"
           name="location"
           // TODO: Improve validation experience 🚸.

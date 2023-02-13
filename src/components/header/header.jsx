@@ -3,7 +3,7 @@ import Nav from "./nav/nav";
 
 export default function Header({ txt }) {
   return (
-    <header className="my-0 bg-gradient-to-r from-cyan-500 to-blue-500 pt-8  text-white">
+    <header className="my-0 bg-gradient-to-r from-purple-500 to-rose-500 pt-8  font-serif text-2xl text-white">
       <h1 className="text-center">{txt}</h1>
       <Nav className="text-right" />
     </header>
@@ -11,7 +11,7 @@ export default function Header({ txt }) {
 }
 
 Header.defaultProps = {
-  txt: "👋🏾 Just Pick a Place Already 🥘 📍 🗺️",
+  txt: "Iron Out",
 };
 
 Header.propTypes = {
