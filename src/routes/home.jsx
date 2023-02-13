@@ -7,7 +7,7 @@ import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import RestaurantCard from "../components/restaurant/restaurant-card";
+import RestaurantCard from "../components/restaurants/restaurant-card";
 import { restaurantApi } from "../services";
 
 export default function Home() {
