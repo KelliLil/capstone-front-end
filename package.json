@@ -20,7 +20,6 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.8",
     "framer-motion": "^9.0.2",
-    "google-map-react": "^2.2.0",
     "ky": "^0.33.2",
     "leaflet": "^1.9.3",
     "react": "^18.2.0",
