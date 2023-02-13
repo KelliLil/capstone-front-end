@@ -38,74 +38,78 @@ export default function SignIn() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
-        <h1 className="text-center capitalize">Sign in</h1>
-        <Form
-          className="mt-4 flex flex-col items-center gap-y-4"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const fd = new FormData(e.target);
+      <div className="h-screen bg-gray-400 text-rose-600">
+        <Container component="main" maxWidth="xs">
+          <h1 className="p-9 text-center font-serif capitalize">Iron Out</h1>
+          <Form
+            className="mt-4 flex flex-col items-center gap-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const fd = new FormData(e.target);
 
-            // * ⚠️ FormData doesn't support boolean
-            // We will send it as a string, or not send it at all (if it's false) 🤓
-            isRegistering && fd.append("isRegistering", isRegistering);
+              // * ⚠️ FormData doesn't support boolean
+              // We will send it as a string, or not send it at all (if it's false) 🤓
+              isRegistering && fd.append("isRegistering", isRegistering);
 
-            // Let the router handle the submit
-            submit2Router(
-              fd,
+              // Let the router handle the submit
+              submit2Router(
+                fd,
 
-              // * Need this to trigger the action in the router
-              { method: "POST" }
-            );
-          }}
-        >
-          <InputText label="Username" id="username" register={register}>
-            {errors.username && (
-              <Alert severity="error">{errors.username.message}</Alert>
-            )}
-          </InputText>
-          <InputText
-            label="Password"
-            id="password"
-            type="password"
-            register={register}
+                // * Need this to trigger the action in the router
+                { method: "POST" }
+              );
+            }}
           >
-            {errors.password && (
-              <Alert severity="error">{errors.password.message} </Alert>
-            )}
-          </InputText>
-          {isRegistering && (
+            <InputText label="Username" id="username" register={register}>
+              {errors.username && (
+                <Alert severity="error">{errors.username.message}</Alert>
+              )}
+            </InputText>
             <InputText
-              label="Confirm Password"
-              id="confirmPassword"
+              label="Password"
+              id="password"
               type="password"
               register={register}
             >
-              {errors.confirmPassword && (
-                <Alert severity="error">{errors.confirmPassword.message}</Alert>
+              {errors.password && (
+                <Alert severity="error">{errors.password.message} </Alert>
               )}
             </InputText>
-          )}
-          <div className="my-4 flex flex-col items-center gap-y-8">
-            <Button type="submit" fullWidth variant="contained">
-              {isRegistering ? "Sign Up" : "Login"}
-            </Button>
-            <Button
-              // * Avoid the HTML 'reset' for React Hook Form instead use the reset() method ☝️
-              type="button"
-              onClick={() => {
-                reset();
-                setIsRegistering((prev) => !prev);
-              }}
-            >
-              {isRegistering
-                ? "Already have an account?"
-                : "Don't have an account?"}
-            </Button>
-          </div>
-        </Form>
-      </Container>
-      <DevTool control={control} /> {/* set up the dev tool */}
+            {isRegistering && (
+              <InputText
+                label="Confirm Password"
+                id="confirmPassword"
+                type="password"
+                register={register}
+              >
+                {errors.confirmPassword && (
+                  <Alert severity="error">
+                    {errors.confirmPassword.message}
+                  </Alert>
+                )}
+              </InputText>
+            )}
+            <div className="my-4 flex flex-col items-center gap-y-8">
+              <Button type="submit" fullWidth variant="contained">
+                {isRegistering ? "Sign Up" : "Login"}
+              </Button>
+              <Button
+                // * Avoid the HTML 'reset' for React Hook Form instead use the reset() method ☝️
+                type="button"
+                onClick={() => {
+                  reset();
+                  setIsRegistering((prev) => !prev);
+                }}
+              >
+                {isRegistering
+                  ? "Already have an account?"
+                  : "Don't have an account?"}
+              </Button>
+            </div>
+          </Form>
+        </Container>
+        <DevTool control={control} /> {/* set up the dev tool */}
+      </div>
     </>
   );
 }
