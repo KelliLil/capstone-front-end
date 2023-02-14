@@ -8,7 +8,8 @@ export default function RequireAuth({ children }) {
 
   const { pathname } = useLocation();
 
-  // If it's 'super-admin'...
+  // TODO: Check pathname against user id
+  // 'isSuperUser' is set from the token
   if (pathname === "/super-admin" && !user.isSuperAdmin)
     return <Navigate to="/" />;
 

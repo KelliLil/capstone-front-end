@@ -13,6 +13,8 @@ import AuthContext from "../context/auth";
 import { userApi } from "../services";
 import { getUserFromToken } from "../utils";
 
+// TODO: 🚸 Avoid flash of page while checking for user
+
 export default function SignIn() {
   const [isRegistering, setIsRegistering] = useState(true);
 
@@ -21,7 +23,9 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (user?.isSuperUser) {
+      navigate("/super-admin");
+    } else if (user) {
       navigate("/");
     }
   }, [user, navigate]);
@@ -54,11 +58,15 @@ export default function SignIn() {
         <Form
           className="mt-4 flex flex-col items-center gap-y-4"
           onSubmit={handleSubmit(async (data) => {
-            // TODO: Build Error Route
-            const { token } = await userApi.signIn(data, isRegistering);
+            const { token } = await userApi
+              .signIn(data, isRegistering)
+              .catch((err) => {
+                console.error(err.message);
+              });
             localStorage.setItem("token", token);
 
-            setUser(getUserFromToken(token));
+            const user = getUserFromToken(token);
+            setUser(user);
 
             // TODO: Navigate to link builder
             navigate("/");
