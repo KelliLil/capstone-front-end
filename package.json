@@ -18,7 +18,8 @@
     "@fontsource/roboto": "^4.5.8",
     "@hookform/resolvers": "^2.9.11",
     "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.11.8",
+    "@mui/material": "^5.11.9",
+    "@mui/styled-engine-sc": "^5.11.9",
     "framer-motion": "^9.0.2",
     "ky": "^0.33.2",
     "leaflet": "^1.9.3",
@@ -27,6 +28,7 @@
     "react-hook-form": "^7.43.1",
     "react-leaflet": "^4.2.0",
     "react-router-dom": "^6.8.1",
+    "styled-components": "^5.3.6",
     "yup": "^1.0.0"
   },
   "devDependencies": {
