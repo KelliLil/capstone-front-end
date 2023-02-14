@@ -16,7 +16,9 @@ export default function Home() {
   const cuisines = useLoaderData();
 
   // For Autocomplete, we need just the strings
-  const labeledCuisines = cuisines.map((cuisine) => cuisine.name);
+  const labeledCuisines = cuisines.map((cuisine) => cuisine.cuisine);
+
+  console.log(labeledCuisines);
 
   return (
     <Container component="main" maxWidth="xs" className="mb-8">
