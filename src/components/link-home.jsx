@@ -1,4 +1,4 @@
-import HomeIcon from "@mui/icons-material/Home";
+import HomeIcon from "@mui/icons-material/Home.js";
 import { Link } from "react-router-dom";
 
 export default function HomeLink() {
