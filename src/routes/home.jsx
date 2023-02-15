@@ -7,6 +7,7 @@ import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import Leaflet from "../components/leaflet";
 import RestaurantCard from "../components/restaurants/restaurant-card";
 import { restaurantApi } from "../services";
 
@@ -16,9 +17,7 @@ export default function Home() {
   const cuisines = useLoaderData();
 
   // For Autocomplete, we need just the strings
-  const labeledCuisines = cuisines.map((cuisine) => cuisine.cuisine);
-
-  console.log(labeledCuisines);
+  const labeledCuisines = cuisines.map((cuisine) => cuisine.name);
 
   return (
     <Container component="main" maxWidth="xs" className="mb-8">
@@ -103,6 +102,16 @@ export default function Home() {
       </form>
 
       {restaurant && <RestaurantCard restaurant={restaurant} />}
+      {restaurant && (
+        <section className="h-96">
+          <Leaflet
+            coordinates={[
+              restaurant.coordinates.latitude,
+              restaurant.coordinates.longitude,
+            ]}
+          />
+        </section>
+      )}
 
       {/* TODO: 🗺️ */}
     </Container>
