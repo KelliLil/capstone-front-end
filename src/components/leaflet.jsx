@@ -4,9 +4,6 @@ import PropTypes from "prop-types";
 import { MapContainer } from "react-leaflet/MapContainer";
 import { Marker } from "react-leaflet/Marker";
 import { TileLayer } from "react-leaflet/TileLayer";
-import View from "./view";
-
-const { VITE_LEAFLET_ZOOM } = import.meta.env;
 
 export default function Leaflet({ coordinates }) {
   const icon = new Icon({
@@ -17,7 +14,7 @@ export default function Leaflet({ coordinates }) {
   return (
     <MapContainer
       center={coordinates}
-      zoom={VITE_LEAFLET_ZOOM}
+      zoom={15}
       scrollWheelZoom={false}
       style={{
         height: "100%",
@@ -28,10 +25,6 @@ export default function Leaflet({ coordinates }) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={coordinates} icon={icon} />
-
-      {/* https://stackoverflow.com/questions/65894789/react-leaflet-map-center-not-changing/65900484#65900484
-       */}
-      <View coordinates={coordinates} />
     </MapContainer>
   );
 }
