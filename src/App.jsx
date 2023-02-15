@@ -7,7 +7,6 @@ import Home from "./routes/home";
 import ProtectedErrorBoundary from "./routes/protected-error-boundary";
 import SignIn from "./routes/sign-in";
 import SuperAdmin from "./routes/super-admin";
-import User from "./routes/user";
 import { cuisineApi, userApi } from "./services";
 import { getUserFromToken } from "./utils";
 
@@ -46,10 +45,6 @@ const router = createBrowserRouter([
 
           return userApi.destroy(id);
         },
-      },
-      {
-        path: "/:username",
-        element: <User />,
       },
     ],
   },

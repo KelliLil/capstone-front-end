@@ -23,8 +23,10 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      navigate(`/${user.username}`);
+    if (user?.isSuperUser) {
+      navigate("/super");
+    } else if (user) {
+      navigate("/");
     }
   }, [user, navigate]);
 
