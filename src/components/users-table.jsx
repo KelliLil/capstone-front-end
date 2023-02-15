@@ -1,6 +1,6 @@
 import { TableBody, TableCell, TableRow } from "@mui/material";
 import PropTypes from "prop-types";
-import { useState } from "React";
+import { useState } from "react";
 import { useSubmit } from "react-router-dom";
 import ConfirmDialog from "../confirm-dialog";
 export default function UsersTable({ users }) {
