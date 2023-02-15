@@ -10,8 +10,7 @@ export default function RequireAuth({ children }) {
 
   // TODO: Check pathname against user id
   // 'isSuperUser' is set from the token
-  if (pathname === "/super-admin" && !user.isSuperAdmin)
-    return <Navigate to="/" />;
+  if (pathname === "/super" && !user.isSuperUser) return <Navigate to="/" />;
 
   return children;
 }

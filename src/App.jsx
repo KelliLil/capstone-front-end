@@ -3,8 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/layout";
 import RequireAuth from "./components/require-auth";
 import AuthContext from "./context/auth";
-import ProtectedErrorBoundary from "./routes/protected-error-boundary";
 import Home from "./routes/home";
+import ProtectedErrorBoundary from "./routes/protected-error-boundary";
 import SignIn from "./routes/sign-in";
 import SuperAdmin from "./routes/super-admin";
 import { cuisineApi, userApi } from "./services";
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <SignIn />,
       },
       {
-        path: "/super-admin",
+        path: "/super",
         element: (
           <RequireAuth>
             <SuperAdmin />

@@ -24,7 +24,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (user?.isSuperUser) {
-      navigate("/super-admin");
+      navigate("/super");
     } else if (user) {
       navigate("/");
     }

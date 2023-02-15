@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useSubmit } from "react-router-dom";
 import ConfirmDialog from "../confirm-dialog";
+
 export default function UsersTable({ users }) {
   const [clickedUser, setClickedUser] = useState(null);
+
   const submit = useSubmit();
+
   return (
     <>
       <TableBody>
@@ -26,6 +29,7 @@ export default function UsersTable({ users }) {
           </TableRow>
         ))}
       </TableBody>
+
       {/* TODO: Address ugly transition 💫. */}
       <ConfirmDialog
         open={Boolean(clickedUser)}
@@ -48,6 +52,7 @@ export default function UsersTable({ users }) {
     </>
   );
 }
+
 UsersTable.propTypes = {
   users: PropTypes.arrayOf(
     // We control the properties of the user object
